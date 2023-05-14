@@ -1,0 +1,12 @@
+.buttonList {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.buttonItem {
+    width: 60px;
+    height: 25px;
+    text-align: center;
+}

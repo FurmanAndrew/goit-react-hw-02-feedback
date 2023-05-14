@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 // import Feedbacks from '../components/feedback/feddback'
 import Statisticks from '../components/Statistics/Statistics'
 import Section from '../components/Section/Section'
-import FeedbackOptions from '../components/FeedbackOptions/FeedbackOptions'
+import {FeedbackOptions} from '../components/FeedbackOptions/FeedbackOptions'
+import Notification from './Notification/Notification';
 
 
 
@@ -13,19 +14,23 @@ class App extends Component {
   bad: 0
   }
 
-  handleClickButton = (typeFeedback) => {
-    this.setState((prevState) =>
-    {(console.log(prevState))
-      return { [typeFeedback.target.name]: prevState[typeFeedback.target.name] += 1 }
+  handleClickButton = (e) => {
+    this.setState(prevState =>
+    {console.log(e)
+      console.log(prevState)
+      console.log({[e.target.name]: prevState[e.target.name] + 1})
+      return { [e.target.name]: prevState[e.target.name] + 1 }
     }
       )
     
   }
-  countTotalFeedback = ({good, neutral, bad}) => {
+  countTotalFeedback = () => {
+    const {good, neutral, bad} = this.state
      return  good + neutral + bad
   }
 
-  countPositiveFeedbackPercentage = ({good, neutral, bad}) => {
+  countPositiveFeedbackPercentage = () => {
+    const {good, neutral, bad} = this.state
     return `${Math.round(good / (good + neutral + bad) * 100)}%`
   }
 
@@ -34,8 +39,9 @@ class App extends Component {
     return (
       <div
         style={{
-          height: '5000',
+          eight: '5000',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
@@ -49,7 +55,7 @@ class App extends Component {
             onLeaveFeedback={this.handleClickButton}/>
           
         </Section>
-        <Section title='Statistics'> {this.state.good === 0 && this.state.neutral === 0 && this.state.bad === 0 ? (<p>There is no feedback</p>) :
+        <Section title='Statistics'> {this.state.good === 0 && this.state.neutral === 0 && this.state.bad === 0 ? (<Notification/>) :
           <Statisticks
             good={this.state.good}
             neutral={this.state.neutral}
